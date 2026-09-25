@@ -2,7 +2,9 @@ const express = require('express');
 const Database = require('better-sqlite3');
 const fs = require('fs'), path = require('path');
 
-const db = new Database(path.join(__dirname, 'data', 'bloodbank.db'));
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+const db = new Database(path.join(DATA_DIR, 'bloodbank.db'));
 db.pragma('journal_mode = DELETE'); db.pragma('foreign_keys = ON');
 db.exec(fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8'));
 try { db.exec('ALTER TABLE notifications ADD COLUMN whatsapp_sent INTEGER DEFAULT 0'); } catch (e) { /* column already exists */ }
