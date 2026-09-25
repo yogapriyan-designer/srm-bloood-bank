@@ -1,0 +1,14 @@
+{
+  "name": "srm-blood-bank",
+  "version": "1.0.0",
+  "description": "SRM Hospital Blood Bank System (Node + Express + SQLite)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "reseed": "node -e \"require('fs').rmSync('data/bloodbank.db',{force:true});console.log('DB removed - run npm start to re-seed')\""
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^4.19.2"
+  }
+}
